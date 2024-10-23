@@ -1,0 +1,52 @@
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url = "file:.dev.db"
+}
+
+model Employee {
+    id Int @id @default(autoincrement())
+    governmentId String @unique
+    fullname String
+    pricePerHour Int
+    workedHours WorkedHour[]
+    shifts Shift[]
+    paysheets Paysheet[]
+}
+model WorkedHour {
+    id Int @id @default(autoincrement())
+    employeeId Int
+    hours Int
+    employee Employee @relation(fields: [employeeId], references: [id])
+}
+model Shift {
+    id Int @id @default(autoincrement())
+    startDate DateTime
+    endDate DateTime
+    employeeId Int
+    employee  Employee @relation(fields: [employeeId], references: [id])
+}
+model Paysheet {
+    id Int @id @default(autoincrement())
+    employeeId Int
+    salary Float
+    employee Employee @relation(fields: [employeeId], references: [id])
+}
+model Position {
+    id Int @id @default(autoincrement())
+    positionName String @unique
+    active Boolean
+    isByPass Boolean
+    permissions Permission[]
+}
+model Permission {
+    id Int @id @default(autoincrement())
+    permission String @unique
+    active Boolean
+    positionId Int
+    position Position @relation(fields: [positionId], references: [id])
+}
