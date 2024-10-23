@@ -1,0 +1,34 @@
+model Employee { // Model / Entidad / Schema
+    id Int @id @default(autoincrement())
+    governmentId String @unique
+    fullname String
+    pricePerHour Int
+}
+model WorkedHour {
+    id Int @id @default(autoincrement())
+    employeeId Int
+    hours Int
+}
+model Shift {
+    id Int @id @default(autoincrement())
+    startDate DateTime
+    endDate DateTime
+    employeeId Int
+}
+model Role {
+    id Int @id @default(autoincrement())
+    role String @unique
+    active Boolean
+    isByPass Boolean
+}
+model Permission {
+    id Int @id @default(autoincrement())
+    permission String @unique
+    active Boolean
+    roleId Int
+}
+model Paysheet { // nomina
+    id Int @id @default(autoincrement())
+    employeeId Int
+    Salary Float
+}
