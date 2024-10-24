@@ -1,9 +1,8 @@
 import express, {Request, Response} from 'express';
+import { getAll } from '../controllers/employee.controller';
 
 const router = express.Router();
 
-router.get('/', (req: Request, res: Response) => {
-    res.send('This is an employee');
-})
+router.get('/', getAll);
 
 export default router;
